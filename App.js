@@ -1,10 +1,22 @@
 import React, {Component} from 'react';
-import { Image, Text, View} from 'react-native';
+import { Button, Image, Text, View} from 'react-native';
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'  
 import cuid from 'cuid'
  
 class HomePage extends Component {
+  static navigationOptions = {
+    title: 'FUFF',
+    headerStyle: {
+      backgroundColor: '#1e7aaa',
+      color: 'white'
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   Navigate(location) {
     this.props.navigation.dispatch(StackActions.reset({
       index: 0,
@@ -15,19 +27,17 @@ class HomePage extends Component {
   }
  
   render() {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>  
+    return (  
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f2faff' }}>
         <Icon
-          name="food-fork-drink"
-          size={150}
-        ></Icon>
-        <Icon.Button
-          name="food"
-          size={30}
-          backgroundColor="#3b5998"
-          onPress={() => this.Navigate('Details')}>
-          Hello World!
-        </Icon.Button>
+          name='food-variant'
+          color='#85b7d1'
+          size={150} />
+        <Button 
+          title='Lets Eat'
+          color='#1e7aaa'  
+          onPress={() => this.Navigate('Details')}
+        />
       </View>
     );
   }
@@ -36,7 +46,7 @@ class HomePage extends Component {
 class DetailsScreen extends React.Component {
    
   UIUri() {
-    return 'https://api.adorable.io/avatars/285/' + cuid() + ".png";
+    return 'https://api.adorable.io/avatars/285/' + cuid() + '.png';
   }
 
   render() {
