@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Text, View} from 'react-native';
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'  
+import cuid from 'cuid'
  
 class HomePage extends Component {
   Navigate(location) {
@@ -11,6 +12,10 @@ class HomePage extends Component {
         NavigationActions.navigate({ routeName: location })
       ],
     }));
+  }
+
+  NewCuid() {
+    return cuid();
   }
 
   render() {
@@ -25,7 +30,7 @@ class HomePage extends Component {
           size={30}
           backgroundColor="#3b5998"
           onPress={() => this.Navigate('Details')}>
-          Lets Eat!
+          {this.NewCuid()}
         </Icon.Button>
       </View>
     );
