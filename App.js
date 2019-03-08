@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View} from 'react-native';
+import { Image, Text, View} from 'react-native';
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'  
 import cuid from 'cuid'
@@ -13,11 +13,7 @@ class HomePage extends Component {
       ],
     }));
   }
-
-  NewCuid() {
-    return cuid();
-  }
-
+ 
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>  
@@ -30,7 +26,7 @@ class HomePage extends Component {
           size={30}
           backgroundColor="#3b5998"
           onPress={() => this.Navigate('Details')}>
-          {this.NewCuid()}
+          Hello World!
         </Icon.Button>
       </View>
     );
@@ -38,10 +34,18 @@ class HomePage extends Component {
 }
 
 class DetailsScreen extends React.Component {
+   
+  UIUri() {
+    return 'https://api.adorable.io/avatars/285/' + cuid() + ".png";
+  }
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Details Screen</Text>
+        <Image
+          style={{width: 50, height: 50}}
+          source={{uri: this.UIUri() }}></Image>
       </View>
     );
   }  
