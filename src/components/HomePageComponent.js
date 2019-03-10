@@ -3,7 +3,8 @@ import { Button, View } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'   
  
-class HomePage extends Component {
+export default class HomePageComponent extends Component {
+  //Create styling for component.
   static navigationOptions = {
     title: 'FUFF',
     headerStyle: {
@@ -17,6 +18,7 @@ class HomePage extends Component {
   };
 
   Navigate(location) {
+    //Navigate to different page based on name.
     this.props.navigation.dispatch(StackActions.reset({
       index: 0,
       actions: [
@@ -41,5 +43,3 @@ class HomePage extends Component {
     );
   }
 }
-
-export default HomePage;
