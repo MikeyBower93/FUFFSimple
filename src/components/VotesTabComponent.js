@@ -3,8 +3,7 @@ import { View, FlatList, Button, Text } from 'react-native';
 import cuid from 'cuid'  
 import _ from 'lodash'   
 import RestaurantItemComponent from './RestaurantItemComponent' 
-import RestaurantOptionModel from '../models/RestaurantOptionModel' 
-import VoteModel from '../models/VoteModel'  
+import RestaurantOptionModel from '../models/RestaurantOptionModel'  
 import Dialog from 'react-native-dialog'
 
 export default class VotesTabComponent extends Component {    
