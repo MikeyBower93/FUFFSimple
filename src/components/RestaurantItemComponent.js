@@ -4,8 +4,8 @@ import { View, FlatList, Image, Button } from 'react-native';
 export default class RestaurantItemComponent extends Component {
     constructor(props) { 
         super(props);  
-    }  
-
+    }   
+    
     render() {
         return (
         <View> 
@@ -17,11 +17,11 @@ export default class RestaurantItemComponent extends Component {
             numColumns={8}
             extraData={this.props}
             keyExtractor={(item, index) => index.toString() }
-            data={this.props.votes }  
+            data={this.props.votes}  
             renderItem={({item, index}) => (
                 <Image
                     style={{width: 50, height: 50}}
-                    source={{uri: item.avatarUri}} />
+                    source={{uri:  `https://api.adorable.io/avatars/285/'${item}.png`}} />
                 )}/> 
         </View>
         );

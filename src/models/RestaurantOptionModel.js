@@ -1,13 +1,13 @@
 import cuid from 'cuid'
 
 export default class RestaurantOptionModel {
-    constructor( name) {
+    constructor(place) { 
         this.id = cuid();
-        this.name = name;
-        this.votes = [];
+        this.place = place;
+        this.voters = [];
     }
 
     AddVote(vote) {
-        this.votes.push(vote);
+        this.voters.push(vote);
     }
 }

@@ -20,13 +20,13 @@ export default class VotesTabComponent extends Component {
   generateInitialData() {
     //Create initial data as we are not using a back end yet.
     var minervaOption = new RestaurantOptionModel('Minerva');
-    _.times(5, (_) => minervaOption.AddVote(new VoteModel(this.generateAvatarUri()))); 
+    _.times(5, (_) => minervaOption.AddVote(cuid())); 
 
     var bertsOption = new RestaurantOptionModel('Berts');
-    _.times(3, (_) => bertsOption.AddVote(new VoteModel(this.generateAvatarUri()))); 
+    _.times(3, (_) => bertsOption.AddVote(cuid())); 
 
     var atomOptions = new RestaurantOptionModel('Atom');
-    _.times(2, (_) => atomOptions.AddVote(new VoteModel(this.generateAvatarUri()))); 
+    _.times(2, (_) => atomOptions.AddVote(cuid())); 
 
     return [
       minervaOption,
@@ -34,17 +34,13 @@ export default class VotesTabComponent extends Component {
       atomOptions
     ];
   }
- 
-  generateAvatarUri() { 
-    return `https://api.adorable.io/avatars/285/'${cuid()}.png`;
-  } 
-
+  
   selectOption(id) {  
     var restaurantOptions = this.state.RestaurantOptions;
  
     //Find the item and add a vote.
     restaurantOptions.find((item) => item.id === id)
-      .AddVote(new VoteModel(this.generateAvatarUri()));
+      .AddVote(new VoteModel(cuid()));
  
     //Update items.
     this.setState({
@@ -65,7 +61,7 @@ export default class VotesTabComponent extends Component {
     var restaurants = this.state.RestaurantOptions;
 
     var newRestaurant = new RestaurantOptionModel(this.state.dialogValue);
-    newRestaurant.AddVote(new VoteModel(this.generateAvatarUri()));
+    newRestaurant.AddVote(cuid());
 
     restaurants.push(newRestaurant);
  
@@ -80,13 +76,13 @@ export default class VotesTabComponent extends Component {
     return (
       <View>   
         <FlatList  
-          data={this.state.RestaurantOptions.sort((a, b) => (a.votes.length <= b.votes.length) ? 1 : -1) }
+          data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
           extraData={this.state}
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item, index}) => (   
             <RestaurantItemComponent 
-              title={item.name} 
-              votes={item.votes} 
+              title={item.place} 
+              votes={item.voters} 
               id={item.id}
               itemSelected={(id) => { this.selectOption(id) }} /> 
           )} />  
