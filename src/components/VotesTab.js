@@ -50,11 +50,19 @@ class VotesTab extends Component {
     });
   }
  
+  selectRandomOption() {
+    var restaurantOptions = this.state.RestaurantOptions;
+
+    var item = restaurantOptions[Math.floor(Math.random() * restaurantOptions.length)];
+
+    this.selectOption(item.id);
+  }
+
   render() {
     return (
       <View>  
         <FlatList  
-          data={this.state.RestaurantOptions}
+          data={this.state.RestaurantOptions.sort((a, b) => (a.avatars.length <= b.avatars.length) ? 1 : -1) }
           extraData={this.state}
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item, index}) => (   
@@ -62,9 +70,10 @@ class VotesTab extends Component {
               title={item.name} 
               avatars={item.avatars} 
               id={item.id}
-              itemSelected={(id) => { this.selectOption(id) }} />
+              itemSelected={(id) => { this.selectOption(id) }} /> 
           )}
         />  
+        <Button title='Suprise Me!' onPress={() => this.selectRandomOption() }></Button>
       </View>
     );
   }  
@@ -82,10 +91,11 @@ class RestaurantItem extends Component {
                 title={this.props.title}
                 onPress={(item) => {this.props.itemSelected(this.props.id)}} /> 
               <FlatList 
-                horizontal={true}
+                style={{flexDirection:'column'}}
+                numColumns={8}
                 extraData={this.props}
                 keyExtractor={(item, index) => index.toString() }
-                data={this.props.avatars}  
+                data={this.props.avatars }  
                 renderItem={({item, index}) => (
                   <Image
                       style={{width: 50, height: 50}}
