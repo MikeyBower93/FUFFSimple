@@ -39,6 +39,11 @@ export default class HomePageComponent extends Component {
           color='#1e7aaa'  
           onPress={() => this.Navigate('Votes')}
         />
+        <Button 
+          title='Previous Results'
+          color='#1e7aaa'  
+          onPress={() => this.Navigate('PreviousResults')}
+        />
       </View>
     );
   }

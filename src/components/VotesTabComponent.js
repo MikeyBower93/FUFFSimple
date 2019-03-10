@@ -69,6 +69,7 @@ export default class VotesTabComponent extends Component {
 
     restaurants.push(newRestaurant);
  
+    //Add new option and close the modal.
     this.setState({
       AddOptionVisible: false,
       RestaurantOptions: restaurants
