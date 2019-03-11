@@ -12,7 +12,8 @@ export default class VotesTabComponent extends Component {
     
     this.state = {
       RestaurantOptions: this.generateInitialData(),
-      AddOptionVisible: false
+      AddOptionVisible: false,
+      userIdentifier: props.navigation.state.params.userIdentifier
     }; 
   }  
 
@@ -34,12 +35,19 @@ export default class VotesTabComponent extends Component {
     ];
   }
   
-  selectOption(id) {  
+  selectOption(id) {    
     var restaurantOptions = this.state.RestaurantOptions;
- 
+    var userIdentifier = this.state.userIdentifier;
+
+    //Remove users already existing selection.
+    restaurantOptions.forEach((value) => {  
+      value.voters = _.remove(value.voters, (value) => {
+        return value !== userIdentifier;
+      });
+    });
+    
     //Find the item and add a vote.
-    restaurantOptions.find((item) => item.id === id)
-      .AddVote(new VoteModel(cuid()));
+    restaurantOptions.find((item) => item.id === id).AddVote(userIdentifier);
  
     //Update items.
     this.setState({
@@ -59,8 +67,7 @@ export default class VotesTabComponent extends Component {
   AddOption() {
     var restaurants = this.state.RestaurantOptions;
 
-    var newRestaurant = new RestaurantOptionModel(this.state.dialogValue);
-    newRestaurant.AddVote(cuid());
+    var newRestaurant = new RestaurantOptionModel(this.state.dialogValue); 
 
     restaurants.push(newRestaurant);
  
@@ -69,11 +76,13 @@ export default class VotesTabComponent extends Component {
       AddOptionVisible: false,
       RestaurantOptions: restaurants
     });
+
+    this.selectOption(newRestaurant.id);
   }
 
   render() {
     return (
-      <View>   
+      <View>    
         <FlatList  
           data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
           extraData={this.state}
