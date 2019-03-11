@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, FlatList, Image, Button } from 'react-native'; 
+import { View, Button } from 'react-native'; 
 import RestaurantVotesComponent from './RestaurantVotesComponent'
+import FUFFButtonComponent from './FUFFButtonComponent'
 
 export default class RestaurantItemComponent extends Component {
     constructor(props) { 
@@ -10,9 +11,9 @@ export default class RestaurantItemComponent extends Component {
     render() {
         return (
         <View> 
-            <Button 
-                title={this.props.title}
-                onPress={(item) => {this.props.itemSelected(this.props.id)}} /> 
+            <FUFFButtonComponent 
+                text={this.props.title}
+                buttonClicked={(item) => {this.props.itemSelected(this.props.id)}} /> 
             <RestaurantVotesComponent votes={this.props.votes} />
         </View>
         );
