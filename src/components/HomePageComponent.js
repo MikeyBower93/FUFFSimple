@@ -15,17 +15,7 @@ export default class HomePageComponent extends Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-  };
-
-  Navigate(location) {
-    //Navigate to different page based on name.
-    this.props.navigation.dispatch(StackActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: location })
-      ],
-    }));
-  }
+  }; 
  
   render() {
     return (  
@@ -37,13 +27,8 @@ export default class HomePageComponent extends Component {
         <Button 
           title='Lets Eat'
           color='#1e7aaa'  
-          onPress={() => this.Navigate('Votes')}
-        />
-        <Button 
-          title='Previous Results'
-          color='#1e7aaa'  
-          onPress={() => this.Navigate('PreviousResults')}
-        />
+          onPress={() => this.props.navigation.navigate('Votes')}
+        /> 
       </View>
     );
   }

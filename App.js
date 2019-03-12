@@ -1,24 +1,29 @@
-import { createAppContainer, createStackNavigator } from 'react-navigation'; 
-import HomePageComponent from './src/components/HomePageComponent'
-import VotesTabComponent from './src/components/VotesTabComponent'  
-import PreviousResultsComponent from './src/components/PreviousResultsComponent'  
-import cuid from 'cuid'
+import { createBottomTabNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
+import cuid from 'cuid';
 
-const AppNavigator = createStackNavigator({
-    Home: {
-      screen: HomePageComponent
-    },
-    Votes: {
+import VotesTabComponent from './src/components/VotesTabComponent'; 
+import PreviousResultsComponent from './src/components/PreviousResultsComponent';
+import HomePageComponent from './src/components/HomePageComponent';
+  
+const TabsNavigator = createBottomTabNavigator({ 
+  Votes: {
       screen: VotesTabComponent,
       params: {
-        userIdentifier: cuid() 
+          userIdentifier: cuid() 
       }
-    },
-    PreviousResults: {
+  },
+  PreviousResults: {
       screen: PreviousResultsComponent
-    }    
-  }, {
-    initialRouteName: 'Home'
-  });
+  }
+}); 
+ 
+const temp = createDrawerNavigator({
+  Tabs: TabsNavigator,
+  Home: {
+    screen: HomePageComponent
+  }
+}, {
+  initialRouteName: 'Home'
+});
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(temp);

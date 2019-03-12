@@ -3,7 +3,7 @@ import { View, Text, FlatList} from 'react-native';
 import PreviousRestaurantModel from '../models/PreviousRestaurantModel'
 import RestaurantVotesComponent from './RestaurantVotesComponent'
 
-export default class RestaurantItemComponent extends Component {
+export default class PreviousResultsComponent extends Component {
     constructor(props) { 
         super(props);  
         
