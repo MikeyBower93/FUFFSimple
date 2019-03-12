@@ -8,10 +8,12 @@ export default class FuffButtonComponent extends Component {
 
     render() {
         return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={this.props.buttonClicked}>
-            <Text style={styles.button}>{this.props.text}</Text>
+        <View>
+          <TouchableOpacity style={{backgroundColor:'red', width:'100%', height:50}} onPress={this.props.buttonClicked}>
+            <TouchableOpacity style={{backgroundColor:'blue', width:'80%',height:50 }} onPress={this.props.buttonClicked}>
+              <Text>{this.props.text}</Text>
             </TouchableOpacity>
+          </TouchableOpacity>
         </View>
         );
     } 
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 25,
+    borderRadius: 10,
     color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
