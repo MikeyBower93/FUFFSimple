@@ -13,7 +13,7 @@ const tabsNavigator = createBottomTabNavigator({
       navigationOptions: {
         tabBarLabel: 'Votes',
         tabBarIcon: ({ tintColor }) => (
-          <Icon name='check-circle-outline' size={30} />
+          <Icon name='check-circle-outline' size={30} style={{color:'black'}}/>
         )
       },
       params: {
@@ -25,7 +25,7 @@ const tabsNavigator = createBottomTabNavigator({
       navigationOptions: {
         tabBarLabel: 'Results',
         tabBarIcon: ({ tintColor }) => (
-          <Icon name='calendar' size={30} />
+          <Icon name='calendar' size={30} style={{color:'black'}} />
         )
       },
   }
@@ -33,9 +33,10 @@ const tabsNavigator = createBottomTabNavigator({
   tabBarOptions: { 
     labelStyle: {
       fontSize: 20,
+      color: 'black'
     },
     style: {
-      //backgroundColor: 'blue',
+      height: 65 
     },
   }
 }); 
