@@ -5,15 +5,18 @@ export default class FuffButtonComponent extends Component {
     constructor(props) { 
         super(props);  
     }  
-
+    
     render() {
         return (
         <View>
           <TouchableOpacity style={{backgroundColor:'red', width:'100%', height:50}} onPress={this.props.buttonClicked}>
             <TouchableOpacity style={{backgroundColor:'blue', width:'80%',height:50 }} onPress={this.props.buttonClicked}>
-              <Text>{this.props.text}</Text>
-            </TouchableOpacity>
-          </TouchableOpacity>
+              <Text>{this.props.text}</Text> 
+              <View style={{marginRight: '-20%', alignItems:"flex-end"}}>
+                {this.props.children} 
+              </View>
+            </TouchableOpacity>  
+          </TouchableOpacity> 
         </View>
         );
     } 

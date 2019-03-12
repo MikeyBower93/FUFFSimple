@@ -13,8 +13,10 @@ export default class RestaurantItemComponent extends Component {
         <View> 
             <FUFFButtonComponent 
                 text={this.props.title}
-                buttonClicked={(item) => {this.props.itemSelected(this.props.id)}} /> 
-            <RestaurantVotesComponent votes={this.props.votes} />
+                buttonClicked={(item) => {this.props.itemSelected(this.props.id)}}>
+                <RestaurantVotesComponent votes={this.props.votes} />    
+            </FUFFButtonComponent>
+            
         </View>
         );
       }
