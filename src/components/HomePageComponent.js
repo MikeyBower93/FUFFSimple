@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Button, View } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { Button, View } from 'react-native'; 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'   
  
 export default class HomePageComponent extends Component {

@@ -1,24 +1,47 @@
+import React from 'react';
 import { createBottomTabNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
 import cuid from 'cuid';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import VotesTabComponent from './src/components/VotesTabComponent'; 
 import PreviousResultsComponent from './src/components/PreviousResultsComponent';
 import HomePageComponent from './src/components/HomePageComponent';
   
-const TabsNavigator = createBottomTabNavigator({ 
+const tabsNavigator = createBottomTabNavigator({ 
   Votes: {
-      screen: VotesTabComponent,
+      screen: VotesTabComponent, 
+      navigationOptions: {
+        tabBarLabel: 'Votes',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name='check-circle-outline' size={30} />
+        )
+      },
       params: {
           userIdentifier: cuid() 
       }
   },
   PreviousResults: {
-      screen: PreviousResultsComponent
+      screen: PreviousResultsComponent, 
+      navigationOptions: {
+        tabBarLabel: 'Results',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name='calendar' size={30} />
+        )
+      },
+  }
+}, {
+  tabBarOptions: { 
+    labelStyle: {
+      fontSize: 20,
+    },
+    style: {
+      //backgroundColor: 'blue',
+    },
   }
 }); 
  
-const temp = createDrawerNavigator({
-  Tabs: TabsNavigator,
+const mainNavigator = createDrawerNavigator({
+  Tabs: tabsNavigator,
   Home: {
     screen: HomePageComponent
   }
@@ -26,4 +49,4 @@ const temp = createDrawerNavigator({
   initialRouteName: 'Home'
 });
 
-export default createAppContainer(temp);
+export default createAppContainer(mainNavigator);
