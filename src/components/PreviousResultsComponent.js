@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {View, Text, FlatList, Image} from 'react-native';  
-import PreviousRestaurantModel from '../models/PreviousRestaurantModel' 
+import PreviousRestaurantModel from '../models/PreviousRestaurantModel';
+import { titleStyle, avatarStyle } from '../styles/styles';
 
 export default class PreviousResultsComponent extends Component {
     constructor(props) { 
@@ -32,6 +33,7 @@ export default class PreviousResultsComponent extends Component {
     render() {
         return (
         <View> 
+            <Text style={titleStyle}>Previous Results</Text>
             <FlatList  
                 data={this.state.PreviousResults.sort((a, b) => (a.date > b.date) ? 1 : -1) }
                 keyExtractor={(item, index) => index.toString()}
@@ -46,7 +48,7 @@ export default class PreviousResultsComponent extends Component {
                             data={item.voters}  
                             renderItem={({item, index}) => (
                                 <Image
-                                    style={{width: 30, height: 30, borderRadius: 40, marginLeft:5}}
+                                    style={[avatarStyle, { marginLeft:5 }]}
                                     source={{uri:  `https://api.adorable.io/avatars/285/'${item}.png`}} />
                                 )}/> 
                     </Fragment>

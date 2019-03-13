@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { textStyle } from '../styles/styles'
 
 export default class FuffButtonComponent extends Component {
     constructor(props) { 
@@ -15,7 +16,7 @@ export default class FuffButtonComponent extends Component {
               <View 
                 style={[styles.innerContainer, { width: `${this.props.percentage}%` }]} />
               <View style={styles.textContainer}>
-                <Text style={styles.buttonText}>{this.props.text}</Text>  
+                <Text style={[textStyle, styles.buttonText]}>{this.props.text}</Text>  
               </View>
               <View style={styles.additionalsContainer}>
                 {this.props.children} 
@@ -50,9 +51,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start'
   },
   buttonText: {
-    marginLeft: 15, 
-    fontSize: 20, 
-    color:'black'
+    marginLeft: 15
   },
   additionalsContainer: {
     position:'absolute', 

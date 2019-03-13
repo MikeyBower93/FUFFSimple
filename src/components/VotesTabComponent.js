@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { View, FlatList, Button, Text } from 'react-native'; 
+import { StyleSheet, View, FlatList, Button, Text } from 'react-native'; 
 import cuid from 'cuid'  
 import _ from 'lodash'   
 import RestaurantItemComponent from './RestaurantItemComponent' 
 import RestaurantOptionModel from '../models/RestaurantOptionModel'  
 import Dialog from 'react-native-dialog'
+import { textStyle, titleStyle } from '../styles/styles'
 
 export default class VotesTabComponent extends Component {    
   constructor(props) { 
@@ -26,7 +27,7 @@ export default class VotesTabComponent extends Component {
     _.times(3, (_) => bertsOption.AddVote(cuid())); 
 
     var atomOptions = new RestaurantOptionModel('Atom');
-    _.times(2, (_) => atomOptions.AddVote(cuid())); 
+    _.times(6, (_) => atomOptions.AddVote(cuid())); 
 
     return [
       minervaOption,
@@ -81,20 +82,21 @@ export default class VotesTabComponent extends Component {
   }
 
   totalVotes() {
+    //Grab all the vote counts and add them together.
     return this.state.RestaurantOptions.map((item) => item.voters.length).reduce((total, num) => total + num);
   }
 
   render() {
     return (
-      <View style={{marginLeft:10, marginRight:10}}>    
-        <Text style={{fontSize: 50, marginBottom:20, fontWeight: 'bold', color:'black' }}>Votes</Text>
+      <View style={styles.outerContainer}>    
+        <Text style={titleStyle}>Votes</Text>
         <FlatList  
           data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
           extraData={this.state}
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item, index}) => (   
             <RestaurantItemComponent 
-              style={{marginTop:5, marginBottom:5}}
+              style={styles.restaurantItem}
               title={item.place} 
               votes={item.voters} 
               totalVotes={this.totalVotes()}
@@ -117,4 +119,15 @@ export default class VotesTabComponent extends Component {
       </View>
     );
   }  
-}
+} 
+
+const styles = StyleSheet.create({ 
+  outerContainer: {
+    marginLeft:10, 
+    marginRight:10
+  },
+  restaurantItem: {
+    marginTop:5, 
+    marginBottom:5
+  }
+});

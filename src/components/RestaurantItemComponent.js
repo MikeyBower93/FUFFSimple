@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, FlatList, Image } from 'react-native';  
-import FUFFButtonComponent from './FUFFButtonComponent'
+import FUFFButtonComponent from './FUFFButtonComponent';
+import { avatarStyle } from '../styles/styles';
 
 export default class RestaurantItemComponent extends Component {
     constructor(props) { 
@@ -23,7 +24,7 @@ export default class RestaurantItemComponent extends Component {
                 data={this.props.votes}  
                 renderItem={({item, index}) => (
                     <Image
-                        style={{width: 30, height: 30, borderRadius: 40, marginLeft: -10 }}
+                        style={[avatarStyle, { marginLeft: -10 }]}
                         source={{uri:  `https://api.adorable.io/avatars/285/'${item}.png`}} />
                     )}/>    
             </FUFFButtonComponent>
