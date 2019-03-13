@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, FlatList, Button, Text } from 'react-native'; 
-import cuid from 'cuid'  
-import _ from 'lodash'   
-import RestaurantItemComponent from './RestaurantItemComponent' 
-import RestaurantOptionModel from '../models/RestaurantOptionModel'  
-import Dialog from 'react-native-dialog'
-import { textStyle, titleStyle } from '../styles/styles'
+import cuid from 'cuid';
+import _ from 'lodash'; 
+import RestaurantItemComponent from './RestaurantItemComponent';
+import RestaurantOptionModel from '../models/RestaurantOptionModel';
+import SimpleButton from './SimpleButton';
+import Dialog from 'react-native-dialog';
+import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle } from '../styles/styles';
 
 export default class VotesTabComponent extends Component {    
   constructor(props) { 
@@ -96,7 +97,7 @@ export default class VotesTabComponent extends Component {
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item, index}) => (   
             <RestaurantItemComponent 
-              style={styles.restaurantItem}
+              style={styles.gapStyle}
               title={item.place} 
               votes={item.voters} 
               totalVotes={this.totalVotes()}
@@ -104,8 +105,11 @@ export default class VotesTabComponent extends Component {
               itemSelected={(id) => { this.selectOption(id) }} /> 
           )} />  
 
-          <Button title='Suprise Me!' onPress={() => this.selectRandomOption() }/>
-          <Button title='Add Option' onPress={() => this.setState({ AddOptionVisible: true })}/>   
+          <Text style={[styles.gapStyle,textStyle]}>Feeling adventurous?</Text> 
+          <SimpleButton style={[styles.gapStyle, greyButtonStyle]} text="Surprise me!" buttonClicked={() => this.selectRandomOption() }/>
+
+          <Text style={[styles.gapStyle,textStyle]}>Don't like the available options?</Text> 
+          <SimpleButton style={[styles.gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.setState({ AddOptionVisible: true })}/>
 
           <Dialog.Container visible={this.state.AddOptionVisible}>
             <Dialog.Title>Add Restaurant</Dialog.Title>
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     marginLeft:10, 
     marginRight:10
   },
-  restaurantItem: {
+  gapStyle: {
     marginTop:5, 
     marginBottom:5
   }
