@@ -13,7 +13,7 @@ export default class FuffButtonComponent extends Component {
               style={styles.outerContainer} 
               onPress={this.props.buttonClicked}>
               <View 
-                style={styles.innerContainer} />
+                style={[styles.innerContainer, { width: `${this.props.percentage}%` }]} />
               <View style={styles.textContainer}>
                 <Text style={styles.buttonText}>{this.props.text}</Text>  
               </View>
@@ -62,8 +62,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end'
   },
   innerContainer: { 
-    backgroundColor:'yellow',
-    width:'70%',
+    backgroundColor:'yellow', 
     height:75, 
     borderRadius: 5
   }

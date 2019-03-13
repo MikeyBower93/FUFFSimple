@@ -80,6 +80,10 @@ export default class VotesTabComponent extends Component {
     this.selectOption(newRestaurant.id);
   }
 
+  totalVotes() {
+    return this.state.RestaurantOptions.map((item) => item.voters.length).reduce((total, num) => total + num);
+  }
+
   render() {
     return (
       <View style={{marginLeft:10, marginRight:10}}>    
@@ -93,6 +97,7 @@ export default class VotesTabComponent extends Component {
               style={{marginTop:5, marginBottom:5}}
               title={item.place} 
               votes={item.voters} 
+              totalVotes={this.totalVotes()}
               id={item.id}
               itemSelected={(id) => { this.selectOption(id) }} /> 
           )} />  
