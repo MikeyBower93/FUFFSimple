@@ -10,7 +10,7 @@ export default class RestaurantItemComponent extends Component {
     
     render() {
         return (
-        <View> 
+        <View style={this.props.style}> 
             <FUFFButtonComponent 
                 text={this.props.title}
                 buttonClicked={(item) => {this.props.itemSelected(this.props.id)}}>
