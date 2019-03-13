@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text, FlatList} from 'react-native';  
-import PreviousRestaurantModel from '../models/PreviousRestaurantModel'
-import RestaurantVotesComponent from './RestaurantVotesComponent'
+import {View, Text, FlatList, Image} from 'react-native';  
+import PreviousRestaurantModel from '../models/PreviousRestaurantModel' 
 
 export default class PreviousResultsComponent extends Component {
     constructor(props) { 
@@ -39,7 +38,17 @@ export default class PreviousResultsComponent extends Component {
                 renderItem={({item, index}) => (   
                     <Fragment>
                         <Text>{item.date.toString()} - {item.place}</Text>
-                        <RestaurantVotesComponent votes={item.voters} />
+                        <FlatList 
+                            style={{flexDirection:'column'}}  
+                            numColumns={30}
+                            extraData={this.state}
+                            keyExtractor={(item, index) => index.toString() }
+                            data={item.voters}  
+                            renderItem={({item, index}) => (
+                                <Image
+                                    style={{width: 30, height: 30, borderRadius: 40, marginLeft:5}}
+                                    source={{uri:  `https://api.adorable.io/avatars/285/'${item}.png`}} />
+                                )}/> 
                     </Fragment>
             )} />  
         </View>

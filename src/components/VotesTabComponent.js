@@ -87,7 +87,7 @@ export default class VotesTabComponent extends Component {
   render() {
     return (
       <View style={{marginLeft:10, marginRight:10}}>    
-        <Text style={{fontSize: 50, fontWeight: 'bold', color:'black' }}>Votes</Text>
+        <Text style={{fontSize: 50, marginBottom:20, fontWeight: 'bold', color:'black' }}>Votes</Text>
         <FlatList  
           data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
           extraData={this.state}
