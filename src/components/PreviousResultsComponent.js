@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';  
+import {View, Text, FlatList, StyleSheet} from 'react-native';  
 import PreviousRestaurantModel from '../models/PreviousRestaurantModel';
-import { titleStyle, avatarStyle } from '../styles/styles';
+import { titleStyle } from '../styles/styles';
+import PreviousItemComponent from './PreviousItemComponent';
 
 export default class PreviousResultsComponent extends Component {
     constructor(props) { 
@@ -32,28 +33,30 @@ export default class PreviousResultsComponent extends Component {
 
     render() {
         return (
-        <View> 
+        <View style={styles.outerContainer}> 
             <Text style={titleStyle}>Previous Results</Text>
             <FlatList  
                 data={this.state.PreviousResults.sort((a, b) => (a.date > b.date) ? 1 : -1) }
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({item, index}) => (   
+                renderItem={({item, index}) => (  
                     <Fragment>
-                        <Text>{item.date.toString()} - {item.place}</Text>
-                        <FlatList 
-                            style={{flexDirection:'column'}}  
-                            numColumns={30}
-                            extraData={this.state}
-                            keyExtractor={(item, index) => index.toString() }
-                            data={item.voters}  
-                            renderItem={({item, index}) => (
-                                <Image
-                                    style={[avatarStyle, { marginLeft:5 }]}
-                                    source={{uri:  `https://api.adorable.io/avatars/285/'${item}.png`}} />
-                                )}/> 
-                    </Fragment>
+                        <View style={styles.gapStyle}>
+                            <PreviousItemComponent date={item.date} place={item.place} voters={item.voters} />
+                        </View>
+                    </Fragment> 
             )} />  
         </View>
         );
       }
 }
+
+const styles = StyleSheet.create({ 
+  outerContainer: {
+    marginLeft:10, 
+    marginRight:10
+  }, 
+  gapStyle: {
+    marginTop:5, 
+    marginBottom:5
+  }
+});

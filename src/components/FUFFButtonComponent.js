@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { textStyle, backgroundStyle } from '../styles/styles'
+import { textStyle, backgroundStyle, shadowStyle } from '../styles/styles'
 
 export default class FuffButtonComponent extends Component {
     constructor(props) { 
@@ -11,7 +11,7 @@ export default class FuffButtonComponent extends Component {
         return ( 
           <View>
             <TouchableOpacity 
-              style={styles.outerContainer} 
+              style={shadowStyle} 
               onPress={this.props.buttonClicked}>
               <View 
                 style={[backgroundStyle, styles.innerContainer, { width: `${this.props.percentage}%` }]} />
@@ -27,23 +27,7 @@ export default class FuffButtonComponent extends Component {
     } 
 }
 
-const styles = StyleSheet.create({ 
-  outerContainer: {
-    width:'100%',  
-    borderRadius: 5,
-    flex:1,
-    flexDirection: 'row',
-    alignItems:'center', 
-    backgroundColor: "#ffffff",
-    shadowColor: "#000000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    },
-    elevation: 1,
-  },
+const styles = StyleSheet.create({  
   textContainer: {
     position:'absolute', 
     flex:1, 

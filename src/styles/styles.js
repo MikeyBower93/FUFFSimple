@@ -30,5 +30,21 @@ module.exports = StyleSheet.create({
     yellowButtonStyle: {
         backgroundColor: '#EDD70D',
         color:'black'
-    }
+    },
+    shadowStyle: {
+        width:'100%',  
+        borderRadius: 5,
+        flex:1,
+        flexDirection: 'row',
+        alignItems:'center', 
+        backgroundColor: "#ffffff",
+        shadowColor: "#000000",
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: 1,
+          width: 0
+        },
+        elevation: 1,
+      }
 });
