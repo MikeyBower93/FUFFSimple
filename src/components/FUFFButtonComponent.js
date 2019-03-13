@@ -9,13 +9,16 @@ export default class FuffButtonComponent extends Component {
     render() {
         return (
         <View style={styles.outerView}>
-          <TouchableOpacity style={styles.outerButton} onPress={this.props.buttonClicked}>
-            <TouchableOpacity style={styles.innerButton} onPress={this.props.buttonClicked}>
-              <Text style={{marginLeft: 15, fontSize: 20, color:'black'}}>{this.props.text}</Text> 
-              
-              {this.props.children} 
-            </TouchableOpacity>  
-          </TouchableOpacity> 
+          <TouchableOpacity onPress={this.props.buttonClicked}>
+            <View style={styles.outerButton}>
+              <View style={styles.innerButton} onPress={this.props.buttonClicked}>
+                <Text style={{marginLeft: 15, fontSize: 20, color:'black', flex:1, flexDirection: 'row', justifyContent:'flex-start'}}>{this.props.text}</Text>  
+                <View style={{flex:1, flexDirection: 'row', justifyContent:'flex-end'}}>
+                  {this.props.children} 
+                </View>
+              </View>  
+            </View> 
+          </TouchableOpacity>
         </View>
         );
     } 
