@@ -41,6 +41,15 @@ module.exports = StyleSheet.create({
         backgroundColor: '#EDD70D',
         color:'black'
     },
+    yellowStackButton: { 
+        color: '#EDD70D',
+        fontWeight:'bold', 
+    },
+    normalTextStyle: {
+        fontSize:20, 
+        marginTop:10,
+        marginBottom:10
+    },
     shadowStyle: {
         width:'100%',  
         borderRadius: 5,

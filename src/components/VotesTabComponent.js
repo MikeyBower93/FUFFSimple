@@ -5,39 +5,21 @@ import _ from 'lodash';
 import RestaurantItemComponent from './RestaurantItemComponent';
 import RestaurantOptionModel from '../models/RestaurantOptionModel';
 import SimpleButton from './SimpleButton';
-import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle, outerContainer, gapStyle, subTitleStyle } from '../styles/styles';
+import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle, outerContainer, gapStyle, subTitleStyle,normalTextStyle } from '../styles/styles';
 import Overlay from 'react-native-modal-overlay';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {dataStore} from '../datastores/RestaurantOptions';
 
 export default class VotesTabComponent extends Component {    
   constructor(props) { 
     super(props); 
     
     this.state = {
-      RestaurantOptions: this.generateInitialData(),
-      AddOptionVisible: false,
+      RestaurantOptions: dataStore, 
       userIdentifier: props.navigation.state.params.userIdentifier
     }; 
   }  
-
-  generateInitialData() {
-    //Create initial data as we are not using a back end yet.
-    var minervaOption = new RestaurantOptionModel('Minerva');
-    _.times(5, (_) => minervaOption.AddVote(cuid())); 
-
-    var bertsOption = new RestaurantOptionModel('Berts');
-    _.times(3, (_) => bertsOption.AddVote(cuid())); 
-
-    var atomOptions = new RestaurantOptionModel('Atom');
-    _.times(6, (_) => atomOptions.AddVote(cuid())); 
-
-    return [
-      minervaOption,
-      bertsOption,
-      atomOptions
-    ];
-  }
-  
+ 
   selectOption(id, requiresPopup = true) {    
     var restaurantOptions = this.state.RestaurantOptions;
     var userIdentifier = this.state.userIdentifier;
@@ -75,27 +57,21 @@ export default class VotesTabComponent extends Component {
     var item = restaurantOptions[Math.floor(Math.random() * restaurantOptions.length)];
 
     this.selectOption(item.id, false);
-  }
-
-  AddOption() {
-    var restaurants = this.state.RestaurantOptions;
-
-    var newRestaurant = new RestaurantOptionModel(this.state.dialogValue); 
-
-    restaurants.push(newRestaurant);
- 
-    //Add new option and close the modal.
-    this.setState({
-      AddOptionVisible: false,
-      RestaurantOptions: restaurants
-    });
-
-    this.selectOption(newRestaurant.id, false);
-  }
+  } 
 
   totalVotes() {
     //Grab all the vote counts and add them together.
     return this.state.RestaurantOptions.map((item) => item.voters.length).reduce((total, num) => total + num);
+  }
+
+  addOption() {
+    this.props.navigation.state.params.refresh = () => this.setState({
+      restaurantOptions: dataStore
+    })
+
+    this.props.navigation.navigate('AddOption', { 
+        refresh: () => this.setState({ restaurantOptions: dataStore })
+    });
   }
 
   render() {
@@ -120,7 +96,7 @@ export default class VotesTabComponent extends Component {
           <SimpleButton style={[gapStyle, greyButtonStyle]} text="Surprise me!" buttonClicked={() => this.selectRandomOption() }/>
 
           <Text style={[gapStyle,textStyle]}>Don't like the available options?</Text> 
-          <SimpleButton style={[gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.setState({ AddOptionVisible: true })}/>
+          <SimpleButton style={[gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.addOption()}/>
 
           <Overlay 
             visible={this.state.optionSelected} 
@@ -135,7 +111,7 @@ export default class VotesTabComponent extends Component {
               size={30} 
               style={{color:'black', marginTop:20}} /> 
             <Text style={subTitleStyle}>Good Choice!</Text>
-            <Text style={{fontSize:20, marginTop:10, marginBottom:10}}>Your vote has been added to:</Text>
+            <Text style={normalTextStyle}>Your vote has been added to:</Text>
             <Text style={{fontWeight:'bold', fontSize:20, color:'black', marginBottom:10}}>{this.state.selectedValue}</Text>
             <View style={{ width:'80%', marginBottom:20}}>
               <SimpleButton 

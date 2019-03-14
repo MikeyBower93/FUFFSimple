@@ -12,7 +12,7 @@ export default class HomePageComponent extends Component {
          <SimpleButton
           text='Get Started'
           style={blackButtonStyle}
-          buttonClicked={() => this.props.navigation.navigate('Votes')} />
+          buttonClicked={() => this.props.navigation.navigate('Tabs')} />
         </View>
       </View>
     );
