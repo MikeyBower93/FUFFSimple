@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, FlatList, Button, Text } from 'react-native'; 
+import { View, FlatList, Text } from 'react-native'; 
 import cuid from 'cuid';
 import _ from 'lodash'; 
 import RestaurantItemComponent from './RestaurantItemComponent';
 import RestaurantOptionModel from '../models/RestaurantOptionModel';
 import SimpleButton from './SimpleButton';
-import Dialog from 'react-native-dialog';
-import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle, outerContainer, gapStyle } from '../styles/styles';
+import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle, outerContainer, gapStyle, subTitleStyle } from '../styles/styles';
+import Overlay from 'react-native-modal-overlay';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class VotesTabComponent extends Component {    
   constructor(props) { 
@@ -37,7 +38,7 @@ export default class VotesTabComponent extends Component {
     ];
   }
   
-  selectOption(id) {    
+  selectOption(id, requiresPopup = true) {    
     var restaurantOptions = this.state.RestaurantOptions;
     var userIdentifier = this.state.userIdentifier;
 
@@ -49,12 +50,22 @@ export default class VotesTabComponent extends Component {
     });
     
     //Find the item and add a vote.
-    restaurantOptions.find((item) => item.id === id).AddVote(userIdentifier);
+    var restaurant = restaurantOptions.find((item) => item.id === id);
+    restaurant.AddVote(userIdentifier);
  
-    //Update items.
-    this.setState({
-      RestaurantOptions: restaurantOptions
-    });
+    if(requiresPopup) {
+      //Update items.
+      this.setState({
+        RestaurantOptions: restaurantOptions,
+        optionSelected: true,
+        selectedValue: restaurant.place
+      });
+    }
+    else {
+      this.setState({
+        RestaurantOptions: restaurantOptions, 
+      });
+    }
   }
  
   selectRandomOption() {
@@ -63,7 +74,7 @@ export default class VotesTabComponent extends Component {
     //Find a random item and select the option.
     var item = restaurantOptions[Math.floor(Math.random() * restaurantOptions.length)];
 
-    this.selectOption(item.id);
+    this.selectOption(item.id, false);
   }
 
   AddOption() {
@@ -79,7 +90,7 @@ export default class VotesTabComponent extends Component {
       RestaurantOptions: restaurants
     });
 
-    this.selectOption(newRestaurant.id);
+    this.selectOption(newRestaurant.id, false);
   }
 
   totalVotes() {
@@ -111,15 +122,28 @@ export default class VotesTabComponent extends Component {
           <Text style={[gapStyle,textStyle]}>Don't like the available options?</Text> 
           <SimpleButton style={[gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.setState({ AddOptionVisible: true })}/>
 
-          <Dialog.Container visible={this.state.AddOptionVisible}>
-            <Dialog.Title>Add Restaurant</Dialog.Title>
-            <Dialog.Description>
-              Where would you like to add?
-            </Dialog.Description>
-            <Dialog.Input onChangeText={(value) => this.setState({ dialogValue: value })}></Dialog.Input>
-            <Dialog.Button label="Cancel" onPress={() => this.setState({ AddOptionVisible: false })} />
-            <Dialog.Button label="Add" onPress={() => this.AddOption()} />
-        </Dialog.Container>
+          <Overlay 
+            visible={this.state.optionSelected} 
+            animationType="zoomIn" 
+            onClose={() => this.setState({ optionSelected: false })} 
+            containerStyle={{backgroundColor: 'rgba(0, 0, 0, 0.78)'}}
+            childrenWrapperStyle={{backgroundColor: '#eee', borderRadius:10}}
+            animationDuration={500} 
+            closeOnTouchOutside>            
+            <Icon 
+              name='thumb-up' 
+              size={30} 
+              style={{color:'black', marginTop:20}} /> 
+            <Text style={subTitleStyle}>Good Choice!</Text>
+            <Text style={{fontSize:20, marginTop:10, marginBottom:10}}>Your vote has been added to:</Text>
+            <Text style={{fontWeight:'bold', fontSize:20, color:'black', marginBottom:10}}>{this.state.selectedValue}</Text>
+            <View style={{ width:'80%', marginBottom:20}}>
+              <SimpleButton 
+                style={yellowButtonStyle} 
+                text="Close" 
+                buttonClicked={() => this.setState({ optionSelected: false })} />
+            </View>
+          </Overlay>
       </View>
     );
   }  

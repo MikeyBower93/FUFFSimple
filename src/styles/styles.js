@@ -18,6 +18,12 @@ module.exports = StyleSheet.create({
         fontWeight: 'bold', 
         color:'black' 
     },
+    subTitleStyle: {
+        fontSize: 30, 
+        marginBottom:20, 
+        fontWeight: 'bold', 
+        color:'black' 
+    },
     avatarStyle: {
         width: 30, 
         height: 30,
