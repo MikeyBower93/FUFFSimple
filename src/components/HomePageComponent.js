@@ -1,34 +1,32 @@
 import React, {Component} from 'react';
-import { Button, View } from 'react-native'; 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'   
+import { View, Image, StyleSheet } from 'react-native';  
+import SimpleButton from '../components/SimpleButton';
+import { backgroundStyle, blackButtonStyle  } from '../styles/styles'; 
  
-export default class HomePageComponent extends Component {
-  //Create styling for component.
-  static navigationOptions = {
-    title: 'FUFF',
-    headerStyle: {
-      backgroundColor: '#1e7aaa',
-      color: 'white'
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }; 
- 
+export default class HomePageComponent extends Component {  
   render() {
     return (  
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f2faff' }}>
-        <Icon
-          name='food-variant'
-          color='#85b7d1'
-          size={150} />
-        <Button 
-          title='Lets Eat'
-          color='#1e7aaa'  
-          onPress={() => this.props.navigation.navigate('Votes')}
-        /> 
+      <View style={[styles.mainView, backgroundStyle]}>
+       <Image style={styles.logoStyle} source={require('../images/fuff.png')} />
+        <View style={{width:'80%'}}>
+         <SimpleButton
+          text='Get Started'
+          style={blackButtonStyle}
+          buttonClicked={() => this.props.navigation.navigate('Votes')} />
+        </View>
       </View>
     );
   }
-}
+} 
+
+const styles = StyleSheet.create({ 
+    mainView: {
+      flex: 1,  
+      justifyContent: 'center', 
+      alignItems: 'center' 
+    },
+    logoStyle: {
+      aspectRatio: 0.5, 
+      resizeMode: 'contain'
+    }
+});

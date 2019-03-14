@@ -27,6 +27,10 @@ module.exports = StyleSheet.create({
         backgroundColor: '#2E2E2E',
         color: 'white'
     },
+    blackButtonStyle: {
+        backgroundColor: 'black',
+        color: 'white'
+    },
     yellowButtonStyle: {
         backgroundColor: '#EDD70D',
         color:'black'
@@ -46,5 +50,13 @@ module.exports = StyleSheet.create({
           width: 0
         },
         elevation: 1,
-      }
+    }, 
+    outerContainer: {
+        marginLeft:10, 
+        marginRight:10
+    },
+    gapStyle: {
+        marginTop:5, 
+        marginBottom:5
+    }
 });

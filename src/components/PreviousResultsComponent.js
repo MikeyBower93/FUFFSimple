@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';  
 import PreviousRestaurantModel from '../models/PreviousRestaurantModel';
-import { titleStyle } from '../styles/styles';
+import { titleStyle, outerContainer, gapStyle } from '../styles/styles';
 import PreviousItemComponent from './PreviousItemComponent';
 
 export default class PreviousResultsComponent extends Component {
@@ -33,14 +33,14 @@ export default class PreviousResultsComponent extends Component {
 
     render() {
         return (
-        <View style={styles.outerContainer}> 
+        <View style={outerContainer}> 
             <Text style={titleStyle}>Previous Results</Text>
             <FlatList  
                 data={this.state.PreviousResults.sort((a, b) => (a.date > b.date) ? 1 : -1) }
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item, index}) => (  
                     <Fragment>
-                        <View style={styles.gapStyle}>
+                        <View style={gapStyle}>
                             <PreviousItemComponent date={item.date} place={item.place} voters={item.voters} />
                         </View>
                     </Fragment> 
@@ -48,15 +48,4 @@ export default class PreviousResultsComponent extends Component {
         </View>
         );
       }
-}
-
-const styles = StyleSheet.create({ 
-  outerContainer: {
-    marginLeft:10, 
-    marginRight:10
-  }, 
-  gapStyle: {
-    marginTop:5, 
-    marginBottom:5
-  }
-});
+} 

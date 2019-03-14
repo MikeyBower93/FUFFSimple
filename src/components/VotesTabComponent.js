@@ -6,7 +6,7 @@ import RestaurantItemComponent from './RestaurantItemComponent';
 import RestaurantOptionModel from '../models/RestaurantOptionModel';
 import SimpleButton from './SimpleButton';
 import Dialog from 'react-native-dialog';
-import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle } from '../styles/styles';
+import { textStyle, titleStyle, greyButtonStyle, yellowButtonStyle, outerContainer, gapStyle } from '../styles/styles';
 
 export default class VotesTabComponent extends Component {    
   constructor(props) { 
@@ -89,7 +89,7 @@ export default class VotesTabComponent extends Component {
 
   render() {
     return (
-      <View style={styles.outerContainer}>    
+      <View style={outerContainer}>    
         <Text style={titleStyle}>Votes</Text>
         <FlatList  
           data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
@@ -97,7 +97,7 @@ export default class VotesTabComponent extends Component {
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item, index}) => (   
             <RestaurantItemComponent 
-              style={styles.gapStyle}
+              style={gapStyle}
               title={item.place} 
               votes={item.voters} 
               totalVotes={this.totalVotes()}
@@ -105,11 +105,11 @@ export default class VotesTabComponent extends Component {
               itemSelected={(id) => { this.selectOption(id) }} /> 
           )} />  
 
-          <Text style={[styles.gapStyle,textStyle]}>Feeling adventurous?</Text> 
-          <SimpleButton style={[styles.gapStyle, greyButtonStyle]} text="Surprise me!" buttonClicked={() => this.selectRandomOption() }/>
+          <Text style={[gapStyle,textStyle]}>Feeling adventurous?</Text> 
+          <SimpleButton style={[gapStyle, greyButtonStyle]} text="Surprise me!" buttonClicked={() => this.selectRandomOption() }/>
 
-          <Text style={[styles.gapStyle,textStyle]}>Don't like the available options?</Text> 
-          <SimpleButton style={[styles.gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.setState({ AddOptionVisible: true })}/>
+          <Text style={[gapStyle,textStyle]}>Don't like the available options?</Text> 
+          <SimpleButton style={[gapStyle, yellowButtonStyle]} text="Add an option" buttonClicked={() => this.setState({ AddOptionVisible: true })}/>
 
           <Dialog.Container visible={this.state.AddOptionVisible}>
             <Dialog.Title>Add Restaurant</Dialog.Title>
@@ -123,15 +123,4 @@ export default class VotesTabComponent extends Component {
       </View>
     );
   }  
-} 
-
-const styles = StyleSheet.create({ 
-  outerContainer: {
-    marginLeft:10, 
-    marginRight:10
-  },
-  gapStyle: {
-    marginTop:5, 
-    marginBottom:5
-  }
-});
+}
