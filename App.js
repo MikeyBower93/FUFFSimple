@@ -13,11 +13,12 @@ import AddOptionComponent from './src/components/AddOptionComponent';
 const tabsNavigator = createBottomTabNavigator({ 
   Votes: {
     screen: VotesTabComponent, 
-    navigationOptions: { 
+    navigationOptions: {  
       tabBarLabel: 'Votes',
       tabBarIcon: ({ tintColor }) => (
         <Icon name='check-circle-outline' size={30} style={{color:'black'}}/>
-      )
+      ),
+      header: null
     },
     params: {
         userIdentifier: cuid() 
@@ -32,7 +33,7 @@ const tabsNavigator = createBottomTabNavigator({
       )
     },
   }
-}, {
+}, {  
   tabBarOptions: { 
     labelStyle: {
       fontSize: 20,
@@ -42,15 +43,20 @@ const tabsNavigator = createBottomTabNavigator({
       height: 65 
     },
   }
-}); 
+});  
  
 const stackNavigator = createStackNavigator({
-  Tabs: tabsNavigator, 
+  Tabs: {
+    screen: tabsNavigator,   
+    navigationOptions: {
+      header: null
+    }
+  }, 
   AddOption: {
     screen: AddOptionComponent
   }
 });
- 
+
 const mainNavigator = createDrawerNavigator({
   Tabs: stackNavigator,
   Home: {

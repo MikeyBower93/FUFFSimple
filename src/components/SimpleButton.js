@@ -10,7 +10,7 @@ export default class SimpleButton extends Component {
     render() {
         return ( 
           <View>
-            <TouchableOpacity 
+            <TouchableOpacity  
               style={[this.props.style, styles.buttonStyling]} 
               onPress={this.props.buttonClicked}>  
               <Text style={[this.props.style, textStyleNoColor]}>{this.props.text}</Text>  

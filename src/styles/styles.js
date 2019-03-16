@@ -6,7 +6,8 @@ module.exports = StyleSheet.create({
         backgroundColor: '#EDD70D',
     },
     textStyleNoColor: { 
-        fontSize: 20,
+        fontSize: 20, 
+        backgroundColor: 'rgba(0,0,0,0)'
     },
     textStyle: { 
         fontSize: 20, 

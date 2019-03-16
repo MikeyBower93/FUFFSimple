@@ -4,8 +4,7 @@ import { titleStyle, yellowStackButton,normalTextStyle,outerContainer } from '..
 import RestaurantOptionModel from '../models/RestaurantOptionModel';
 import {dataStore} from '../datastores/RestaurantOptions';
 
-export default class AddOptionComponent extends Component {  
-
+export default class AddOptionComponent extends Component {   
     static navigationOptions = ({ navigation }) => ({
         headerBackTitle: 'Back',
         headerRight:  ( 
@@ -21,7 +20,8 @@ export default class AddOptionComponent extends Component {
         super(props);  
 
         this.state = {
-            text: ''
+            text: '',
+            borderColor: 'grey'
         }
     }  
 
@@ -30,27 +30,46 @@ export default class AddOptionComponent extends Component {
 
         this.props.navigation.setParams({
             save: () => { 
-                var newRestaurant = new RestaurantOptionModel(_that.state.text); 
-             
-                dataStore.push(newRestaurant);
+                if(/\S/.test(_that.state.text.trim())) {  
+                    var newRestaurant = new RestaurantOptionModel(_that.state.text); 
+                
+                    dataStore.push(newRestaurant);
 
-                _that.props.navigation.state.params.refresh();
+                    _that.props.navigation.state.params.refresh();
 
-                _that.props.navigation.goBack(null);
+                    _that.props.navigation.goBack(null);
+                } 
             }
         });
     } 
+
+    validateTextInput(text) {
+        if(/\S/.test(text) === false) {  
+            this.setState({
+                borderColor: 'red'
+            });
+        }
+        else {
+            this.setState({
+                borderColor: 'grey'
+            });
+        }
+    }
 
     render() {
         return (  
             <View style={outerContainer}> 
                 <Text style={titleStyle}>Add Choice</Text>
                 <Text style={[normalTextStyle,{ color:'black' }]}>Where would you like to eat?</Text>
-                <TextInput 
+                <TextInput    
                     clearButtonMode='always'
-                    style={{borderColor:'grey', borderRadius: 5, borderWidth: 0.4}}
-                    onChangeText={(text) => { this.setState({text}) }}></TextInput>
+                    style={{borderColor:this.state.borderColor, borderRadius: 5, borderWidth: 1}}
+                    onChangeText={(text) => {
+                         this.setState({text}); 
+                         this.validateTextInput(text);
+                    }} /> 
             </View>
         );
     }
 }
+

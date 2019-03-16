@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, FlatList, Text } from 'react-native'; 
+import { View, FlatList, Text, ScrollView } from 'react-native'; 
 import cuid from 'cuid';
 import _ from 'lodash'; 
 import RestaurantItemComponent from './RestaurantItemComponent';
@@ -10,7 +10,7 @@ import Overlay from 'react-native-modal-overlay';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {dataStore} from '../datastores/RestaurantOptions';
 
-export default class VotesTabComponent extends Component {    
+export default class VotesTabComponent extends Component {      
   constructor(props) { 
     super(props); 
     
@@ -76,7 +76,7 @@ export default class VotesTabComponent extends Component {
 
   render() {
     return (
-      <View style={outerContainer}>    
+      <ScrollView style={outerContainer}>    
         <Text style={titleStyle}>Votes</Text>
         <FlatList  
           data={this.state.RestaurantOptions.sort((a, b) => (a.voters.length <= b.voters.length) ? 1 : -1) }
@@ -120,7 +120,7 @@ export default class VotesTabComponent extends Component {
                 buttonClicked={() => this.setState({ optionSelected: false })} />
             </View>
           </Overlay>
-      </View>
+      </ScrollView>
     );
   }  
 }

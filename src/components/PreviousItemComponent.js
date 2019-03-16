@@ -13,7 +13,10 @@ export default class PreviousItemComponent extends Component {
         return (
         <View>  
             <Text style={textStyle}>{dateFormat(this.props.date, 'dddd dS mmmm')}</Text>
-            <FUFFButtonComponent percentage={100} text={this.props.place}></FUFFButtonComponent>
+            <FUFFButtonComponent 
+                percentage={100} 
+                text={this.props.place}
+                disabled={true} />
             <View style={[shadowStyle, { height:75 }]}>
                 <FlatList 
                     style={{flexDirection:'column'}}  

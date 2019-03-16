@@ -11,6 +11,7 @@ export default class FuffButtonComponent extends Component {
         return ( 
           <View>
             <TouchableOpacity 
+              disabled={this.props.disabled}
               style={shadowStyle} 
               onPress={this.props.buttonClicked}>
               <View 
